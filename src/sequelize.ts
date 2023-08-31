@@ -1,4 +1,5 @@
 import { Sequelize } from 'sequelize';
+
 import config from './config.js';
 
 const sequelize = new Sequelize(
@@ -6,7 +7,7 @@ const sequelize = new Sequelize(
   config.database.username,
   config.database.password,
   {
-    host: config.database.host,
+    host: 'postgres',
     dialect: config.database.dialect,
   }
 );
