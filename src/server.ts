@@ -1,6 +1,6 @@
-import app from './app.js';
-import config from './config.js';
-import sequelize from './sequelize.js';
+import app from './app';
+import config from './config';
+import sequelize from './sequelize';
 
 
 

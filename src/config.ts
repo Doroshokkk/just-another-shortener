@@ -15,8 +15,9 @@ interface AppConfig {
   redis: {
     host: string;
     port: number;
-  },
+  };
   short_link_symbols: number;
+  domain: string;
 }
 
 const config: AppConfig = {
@@ -33,7 +34,8 @@ const config: AppConfig = {
     host: process.env.REDIS_HOST || 'localhost',
     port: parseInt(process.env.REDIS_PORT || '6379')
   },
-  short_link_symbols: 6
+  short_link_symbols: 6,
+  domain: 'localhost:3000'
 };
 
 export default config;
