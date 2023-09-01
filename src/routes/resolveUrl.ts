@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { check, query } from 'express-validator';
 
-import { getFullUrl } from '../controllers/resolveUrlController.js';
+import { getFullUrl } from '../controllers/resolveUrlController';
 
 const router = Router();
 

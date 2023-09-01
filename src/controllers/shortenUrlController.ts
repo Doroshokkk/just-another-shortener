@@ -1,10 +1,10 @@
 import { Request, Response, NextFunction } from 'express';
 import { validationResult } from 'express-validator';
 
-import { generateShortCode, addLinkToDB } from '../services/shortenUrlService.js';
-import sequelize from '../sequelize.js';
-import UrlMapping from '../models/urlModel.js';
-import config from '../config.js';
+import { generateShortCode, addLinkToDB } from '../services/shortenUrlService';
+import sequelize from '../sequelize';
+import UrlMapping from '../models/urlModel';
+import config from '../config';
 
 export const createShortenedUrl = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -16,6 +16,7 @@ export const createShortenedUrl = async (req: Request, res: Response, next: Next
         message: 'Body validation failed',
         errors
       });
+      return;
     }
     //if we're willing to handle high loads where we have 10000+ RPS,
     //I'd rather have validation on frontend, before sending request to backend
@@ -44,10 +45,13 @@ export const createShortenedUrl = async (req: Request, res: Response, next: Next
       retryCount++;
     }
 
-    if (retryCount === RETRY_LIMIT)
-      res
-        .status(409)
-        .json({ status: 'failed', message: `failed to generate a link with unique code. Need to extend the pool` });
+    if (retryCount === RETRY_LIMIT) {
+      res.status(409).json({
+        status: 'failed',
+        message: `failed to generate a link with unique code. Need to extend the pool`
+      });
+      return;
+    }
 
     const [results, metadata] = await sequelize.query('select * from "UrlMappings";');
 
@@ -58,7 +62,6 @@ export const createShortenedUrl = async (req: Request, res: Response, next: Next
       item: addedItem || 'err',
       database: results
     });
-    
   } catch (error: any) {
     console.log(error); //extend
     res.status(500).json({ status: 'error', message: 'internal server error', error: error });

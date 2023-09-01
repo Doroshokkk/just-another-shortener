@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { check } from 'express-validator';
 
-import { createShortenedUrl } from '../controllers/shortenUrlController.js';
+import { createShortenedUrl } from '../controllers/shortenUrlController';
 
 const router = Router();
 

@@ -1,5 +1,5 @@
-import UrlModel from '../models/urlModel.js';
-import { PsqlError } from '../models/psqlError.js';
+import UrlModel from '../models/urlModel';
+import { PsqlError } from '../models/psqlError';
 
 export async function getLinkDataFromDB(shortUrl: string) {
   try {
