@@ -53,17 +53,13 @@ export const createShortenedUrl = async (req: Request, res: Response, next: Next
       return;
     }
 
-    const [results, metadata] = await sequelize.query('select * from "UrlMappings";');
-
     res.json({
       status: 'success',
       message: 'link successfully shortened',
-      data: `${domain}/${code}`,
-      item: addedItem || 'err',
-      database: results
+      data: `${domain}/${code}`
     });
   } catch (error: any) {
-    console.log(error); //extend
+    console.log(error);
     res.status(500).json({ status: 'error', message: 'internal server error', error: error });
   }
 };
