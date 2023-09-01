@@ -88,8 +88,8 @@ response: {
 
 
 # But what if? - Part 2
-If we're planning for our app to reach such popularity that it reaches  10.000 or even 100.000 requests per secong loads, I'd do a few things:
-* 1 - I'd introduce rate limiting (for example, by IP address). Such amounts of requests are on the levels of DDOS attack, so it's reasonable to have some control if we don't want to spend thousands on server maintenance or AWS bills.
+If we're planning for our app to reach such popularity that it'll suffer from 10.000 or even 100.000 requests per second loads, I'd do a few things:
+* 1 - I'd introduce rate limiting (for example, by IP address). Such amounts of requests are on a DDOS attack levels, so it's reasonable to have some control if we don't want to spend thousands on server maintenance or AWS bills.
 * 2 - I'd think about switching to NoSQL database, as they are designed for horizontal scalability and can handle high load easier, and also allow to partition the data.
 * 3 - Of course, I'd spend a lot of time profiling and trying to optimize the hell out of each function, cause usage===money especially in case of serverless. By the way - I believe AWS lambda would fail to handle such load as there is a 1000 concurrent lambdas limit, and I'm not sure if it's highly expendable.
 * 4 - I'd use a load balancer, cause not only the database is a bottleneck, but also our server. We'd have to distribute traffic by many instances.
